@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Stock extends CI_Controller {
+class BahanBaku extends CI_Controller {
  
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('StockModel','stock');
+        $this->load->model('BahanBakuModel','bb');
         if (!$this->session->userdata('openedCuyEa')) {
             redirect('login');
         }  elseif ($this->session->userdata('hak') == "karyawan") {
@@ -17,36 +17,35 @@ class Stock extends CI_Controller {
     public function index()
     {
         $this->load->helper('url');
-        $data['title'] = "Data Barang Masuk";
+        $data['title'] = "Data Bahan Baku";
         $this->load->view('template/header', $data);
-        $this->load->view('stock');
+        $this->load->view('bahanBaku');
         $this->load->view('template/footer');
     }
  	
     public function dataBarang() {
-		$data = $this->stock->dataBarang();
+		$data = $this->bb->dataBarang();
         echo json_encode($data);
     }
 
     public function ajax_list()
     {
-        $list = $this->stock->get_datatables();
+        $list = $this->bb->get_datatables();
         $data = array();
         $no = $_POST['start'];
-        foreach ($list as $stock) {
+        foreach ($list as $bb) {
             $no++;
             $row = array();
             $row[] = '<p class="text-center">' .$no. '</p>';
-            $row[] = $stock->nama_barang;
-            $row[] = $stock->jumlah;
-            $row[] = 'Rp. ' . number_format($stock->harga_beli, 0,',' ,'.');
-            $row[] = $stock->tgl_ubah;
+            $row[] = $bb->bahan_baku;
+            $row[] = 'Rp. ' . number_format($bb->total_harga, 0,',' ,'.');
+            $row[] = $bb->tgl_ubah;
  
             //add html for action
             $row[] = '
             	<div align="center">
-            		<a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$stock->id_stock."'".')"><i class="fas fa-pencil-alt"></i></a>
-                  	<a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$stock->id_stock."'".')"><i class="fas fa-trash"></i></a>
+            		<a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$bb->id_bahan_baku."'".')"><i class="fas fa-pencil-alt"></i></a>
+                  	<a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$bb->id_bahan_baku."'".')"><i class="fas fa-trash"></i></a>
                 </div>';
          
             $data[] = $row;
@@ -54,8 +53,8 @@ class Stock extends CI_Controller {
  
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->stock->count_all(),
-                        "recordsFiltered" => $this->stock->count_filtered(),
+                        "recordsTotal" => $this->bb->count_all(),
+                        "recordsFiltered" => $this->bb->count_filtered(),
                         "data" => $data,
                 );
         //output to json format
@@ -64,7 +63,7 @@ class Stock extends CI_Controller {
  
     public function ajax_edit($id)
     {
-        $data = $this->stock->get_by_id($id);
+        $data = $this->bb->get_by_id($id);
         echo json_encode($data);
     }
  
@@ -72,13 +71,12 @@ class Stock extends CI_Controller {
     {
         $this->_validate();
         $data = array(
-                'id_barang' => $this->input->post('nmBrg'),
-                'jumlah' => $this->input->post('jmlBrg'),
-                'harga_beli' => implode(explode(".", $this->input->post('hrgBrg'))),
+                'bahan_baku' => $this->input->post('bahanBaku'),
+                'total_harga' => implode(explode(".", $this->input->post('totalHarga'))),
                 'tgl_buat' => date('Y-m-d H:i:s'),
             );
-        $insert = $this->stock->save($data);
-        helper_log("add", "Tambah Data Stock Barang / Barang Masuk");
+        $insert = $this->bb->save($data);
+        helper_log("add", "Tambah Data Bahan Baku");
         echo json_encode(array("status" => TRUE));
     }
  
@@ -86,20 +84,19 @@ class Stock extends CI_Controller {
     {
         $this->_validate();
         $data = array(
-                'id_barang' => $this->input->post('nmBrg'),
-                'jumlah' => $this->input->post('jmlBrg'),
-                'harga_beli' => implode(explode(".", $this->input->post('hrgBrg'))),
+                'bahan_baku' => $this->input->post('bahanBaku'),
+                'total_harga' => implode(explode(".", $this->input->post('totalHarga'))),
                 // 'tgl_buat' => date('Y-m-d H:i:s'),
             );
-        $this->stock->update(array('id_stock' => $this->input->post('idne')), $data);
-        helper_log("update", "Ubah Data Stock Barang / Barang Masuk");
+        $this->bb->update(array('id_bahan_baku' => $this->input->post('idne')), $data);
+        helper_log("update", "Ubah Data Bahan Baku");
         echo json_encode(array("status" => TRUE));
     }
  
     public function ajax_delete($id)
     {
-        $this->stock->delete_by_id($id);
-        helper_log("delete", "Hapus Data Stock Barang / Barang Masuk");
+        $this->bb->delete_by_id($id);
+        helper_log("delete", "Hapus Data Bahan Baku");
         echo json_encode(array("status" => TRUE));
     }
  
@@ -111,9 +108,9 @@ class Stock extends CI_Controller {
         // $data['inputerror'] = array();
         $data['status'] = TRUE;
  
-        if($this->input->post('nmBrg') == '' || $this->input->post('jmlBrg') == '' || $this->input->post('hrgBrg') == '')
+        if($this->input->post('bahanBaku') == '' || $this->input->post('totalHarga') == '')
         {
-            // $data['inputerror'][] = 'nama_stock';
+            // $data['inputerror'][] = 'nama_bahan_baku';
             $data['status'] = FALSE;
         }
  

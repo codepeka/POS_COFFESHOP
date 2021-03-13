@@ -39,8 +39,8 @@ class SalesModel extends CI_Model {
 
     public function getAll()
     {
-        $this->db->select('id_barang, nama_barang, harga_jual');
-		$this->db->from('barang');
+        $this->db->select('id_menu, nama_menu, foto, harga_jual');
+		$this->db->from('menu');
 		// $this->db->limit(1);
         // $this->db->where('id_setting', 0);
         $query = $this->db->get();
@@ -49,9 +49,9 @@ class SalesModel extends CI_Model {
     }
 
     public function getWhere($name) {
-    	$this->db->select('id_barang, nama_barang, harga_jual');
-    	$this->db->from('barang');
-    	$this->db->like('nama_barang', $name);
+    	$this->db->select('id_menu, nama_menu, harga_jual');
+    	$this->db->from('menu');
+    	$this->db->like('nama_menu', $name);
     	$query = $this->db->get();
 
     	return $query->result();
@@ -65,7 +65,7 @@ class SalesModel extends CI_Model {
 
     // Penghapusan data ketika mengeklik kedua kalinya pada gambar
     public function delete_pemesanan_detail($ib, $ip) {
-    	$this->db->where(array('id_barang' => $ib, 'id_pemesanan' => $ip));
+    	$this->db->where(array('id_menu' => $ib, 'id_pemesanan' => $ip));
         $this->db->delete('pemesanan_detail');
     }
 
@@ -75,7 +75,7 @@ class SalesModel extends CI_Model {
     }
 
     public function getOrderMenu($idUser) {
-    	$sql = 'SELECT `a`.`id_pemesanan_detail`, `a`.`id_pemesanan`, `b`.`id_barang`, `b`.`nama_barang`, `b`.`foto`, `b`.`harga_jual`, `b`.`jumlah_stock`, `a`.`harga_asli`, `a`.`jumlah_barang` FROM `pemesanan_detail` `a` LEFT JOIN `barang` `b` ON `a`.`id_barang` = `b`.`id_barang` LEFT JOIN `pemesanan` `c` ON `c`.`id_pemesanan` = `a`.`id_pemesanan` WHERE `c`.`id_user` = '. $idUser .' AND `c`.`id_pemesanan` = (SELECT id_pemesanan FROM `pemesanan` WHERE status = 0 ORDER BY id_pemesanan ASC LIMIT 1)';
+    	$sql = 'SELECT `a`.`id_pemesanan_detail`, `a`.`id_pemesanan`, `b`.`id_menu`, `b`.`nama_menu`, `b`.`foto`, `b`.`harga_jual`, `a`.`harga_asli`, `a`.`jumlah_menu` FROM `pemesanan_detail` `a` LEFT JOIN `menu` `b` ON `a`.`id_menu` = `b`.`id_menu` LEFT JOIN `pemesanan` `c` ON `c`.`id_pemesanan` = `a`.`id_pemesanan` WHERE `c`.`id_user` = '. $idUser .' AND `c`.`id_pemesanan` = (SELECT id_pemesanan FROM `pemesanan` WHERE status = 0 ORDER BY id_pemesanan ASC LIMIT 1)';
 
         $query = $this->db->query($sql);
  
@@ -83,24 +83,24 @@ class SalesModel extends CI_Model {
     }
 
     public function getHargaOrderMenu($idUser) {
-    	$sql = 'SELECT `b`.`harga_jual`, `a`.`jumlah_barang` FROM `pemesanan_detail` `a` LEFT JOIN `barang` `b` ON `a`.`id_barang` = `b`.`id_barang` LEFT JOIN `pemesanan` `c` ON `c`.`id_pemesanan` = `a`.`id_pemesanan` WHERE `c`.`id_user` = '. $idUser .' AND `c`.`id_pemesanan` = (SELECT id_pemesanan FROM `pemesanan` WHERE status = 0 ORDER BY id_pemesanan ASC LIMIT 1)';
+    	$sql = 'SELECT `b`.`harga_jual`, `a`.`jumlah_menu` FROM `pemesanan_detail` `a` LEFT JOIN `menu` `b` ON `a`.`id_menu` = `b`.`id_menu` LEFT JOIN `pemesanan` `c` ON `c`.`id_pemesanan` = `a`.`id_pemesanan` WHERE `c`.`id_user` = '. $idUser .' AND `c`.`id_pemesanan` = (SELECT id_pemesanan FROM `pemesanan` WHERE status = 0 ORDER BY id_pemesanan ASC LIMIT 1)';
 
         $query = $this->db->query($sql);
  
         return $query->result();
     }
 
-    public function dataBrg($ib) {
-    	$sql = 'SELECT harga_jual FROM barang WHERE id_barang = ' . $ib;
+    public function dataMenu($ib) {
+    	$sql = 'SELECT harga_jual FROM menu WHERE id_menu = ' . $ib;
         $query = $this->db->query($sql);
 
         return $query->row();
     }
 
-    public function cekBarang($ib, $ip){
+    public function cekMenu($ib, $ip){
     	$this->db->select('id_pemesanan_detail');
 		$this->db->from('pemesanan_detail');
-        $this->db->where(array('id_pemesanan' => $ip, 'id_barang' => $ib));
+        $this->db->where(array('id_pemesanan' => $ip, 'id_menu' => $ib));
         $query = $this->db->get();
  
         return $query->num_rows();

@@ -78,7 +78,7 @@ class Home extends CI_Controller {
                       <thead>
                         <tr>
                           <th class="text-center no"> # </th>
-                          <th>Nama Barang</th>
+                          <th>Nama Menu</th>
                           <th>Jumlah</th>
                           <th>Harga</th>
                         </tr>
@@ -89,8 +89,8 @@ class Home extends CI_Controller {
                 foreach ($dataDPI->result() as $r) {
                     echo '<tr>
                             <td class="text-center">'. $no++ .'</td>
-                            <td>'. $r->nama_barang .'</td>
-                            <td>'. $r->jumlah_barang .'</td>
+                            <td>'. $r->nama_menu .'</td>
+                            <td>'. $r->jumlah_menu .'</td>
                             <td>Rp. '. number_format($r->harga_asli, 0,',' ,'.') .'</td>
                           </tr>';
                 }

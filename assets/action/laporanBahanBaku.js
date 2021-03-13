@@ -18,7 +18,7 @@ $(document).ready(function(){
 		if (id != '') {
 		    $.ajax({
 		        type  : 'GET',
-		        url   : 'LaporanMasuk/ajax_detail/' + id,
+		        url   : 'LaporanBahanBaku/ajax_detail/' + id,
 		        async : true,
 		        dataType : 'json',
 		        beforeSend: function() {
@@ -29,15 +29,15 @@ $(document).ready(function(){
 		            let totalHarga = 0;
 			        let options = {month: 'long'};
 					let today  = new Date(id);
-		            let html = `<a href="javascript:void(0)" class="btn btn-primary mb-4" onclick="cetak('${id}')"><i class="fa fa-print"></i>  Cetak Laporan Bulan ${today.toLocaleDateString("en-US", options)}</a>
+		            let html = `<a href="javascript:void(0)" class="btn btn-primary mb-4" onclick="cetak('${id}')"><i class="fa fa-print"></i>  Cetak Laporan Bulan ${today.toLocaleDateString("id-ID", options)}</a>
 		            	  <div class="table-responsive" id="showTable">
 				                  <table class="table table-bordered" id="myTable">
 				                    <thead>
 				                      <tr>
 				                        <th class="text-center no"> # </th>
-				                        <th>Nama Barang</th>
-				                        <th>Jumlah</th>
-				                        <th>Harga Beli</th>
+				                        <th>Bahan Baku</th>
+				                        <th>Tanggal</th>
+				                        <th>Sub Total</th>
 				                      </tr>
 				                    </thead>
 				                    <tbody>`;
@@ -45,11 +45,11 @@ $(document).ready(function(){
 		            for(let i=0; i<data.length; i++){
 		                html += `<tr>
 		                		  <td>${no++}</td>
-					              <td>${data[i].nama_barang}</td>
-					              <td>${data[i].jumlah}</td>
-					              <td>Rp. ${new Intl.NumberFormat().format(data[i].harga_beli)}</td>
+					              <td>${data[i].bahan_baku}</td>
+					              <td>${data[i].tgl_ubah}</td>
+					              <td>Rp. ${new Intl.NumberFormat().format(data[i].total_harga)}</td>
 					            <tr>`;
-					    totalHarga += parseInt(data[i].harga_beli);
+					    totalHarga += parseInt(data[i].total_harga);
 		            }
 		            html += `<tr style="border: 1px border: 1px; background-color: #6777ef; color: #fff; font-weight: bold;">
 		                    	<td class="text-right" colspan="3">Total Harga : </td>
@@ -79,5 +79,5 @@ $(document).ready(function(){
 
 // Fungsi cetak laporan
 function cetak(id) {
-  window.open("LaporanMasuk/cetak/" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=100,width=900,height=460");
+  window.open("LaporanBahanBaku/cetak/" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=100,width=900,height=460");
 }

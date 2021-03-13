@@ -1,7 +1,7 @@
 <!-- <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css"> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script> -->
 <script src="<?= base_url('assets/js/jquery.maskMoney.min.js'); ?>"></script>
-<script src="<?= base_url('assets/action/stock.js'); ?>"></script>
+<script src="<?= base_url('assets/action/bahanBaku.js'); ?>"></script>
 
 <section class="section">
   <div class="section-header">
@@ -15,7 +15,7 @@
           <div class="card-header">
             <!-- <h4>Basic DataTables</h4> -->
             <button type="button" class="btn btn-primary daterange-btn icon-left btn-icon tambah" onclick="tambah()">
-              <i class="fas fa-plus"></i> Tambah Data Barang Masuk
+              <i class="fas fa-plus"></i> Tambah Data Bahan Baku
             </button>
             <button class="btn btn-icon icon-left btn-info ml-2" onclick="reload_table()">
               <i class="fas fa-sync"></i> Refresh
@@ -29,10 +29,9 @@
                 <thead>
                   <tr>
                     <th class="text-center"> # </th>
-                    <th>Nama Barang</th>
-                    <th>Jumlah</th>
-                    <th>Harga Beli</th>
-                    <th>Tanggal Buat</th>
+                    <th>Bahan Baku</th>
+                    <th>Total Harga</th>
+                    <th>Tanggal</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -63,31 +62,21 @@
       <form class="needs-validation" novalidate="" id="myForm">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nmBrg">Nama Barang</label>
-            <input type="hidden" name="idne" id="idne">
-            <select class="form-control" name="nmBrg" id="nmBrg" required="">
-              <!-- grab data with javascript -->
-            </select>
+            <label for="bahanBaku">Bahan Baku : </label>
+            <input type="hidden" name="idne" id="idne"> 
+            <textarea class="form-control" name="bahanBaku" id="bahanBaku" style="height: 120px" required=""></textarea>
             <!-- Validation -->
             <div class="valid-feedback"> Good job! </div>
             <div class="invalid-feedback"> Barang Wajib Diisi! </div>
             <!-- End Validation -->
           </div>
           <div class="form-group">
-          	<label for="jmlBrg">Jumlah Barang (Kg / Satuan)</label>
-		        <input type="number" class="form-control" name="jmlBrg" id="jmlBrg" required>
-            <!-- Validation -->
-            <div class="valid-feedback"> Good job! </div>
-            <div class="invalid-feedback"> Jumlah Barang Wajib Diisi! </div>
-            <!-- End Validation -->
-		      </div>
-          <div class="form-group">
-            <label for="hrgBrg">Harga Beli (Total Harga)</label>
+            <label for="totalHarga">Total Harga : </label>
             <div class="input-group flex-nowrap">
       			  <div class="input-group-prepend">
       			    <span class="input-group-text" id="addon-wrapping">Rp.</span>
       			  </div>
-              <input type="text" class="form-control uang" name="hrgBrg" id="hrgBrg" required="">
+              <input type="text" class="form-control uang" name="totalHarga" id="totalHarga" required="">
             </div>
               <!-- Validation -->
               <div class="valid-feedback"> Good job! </div>

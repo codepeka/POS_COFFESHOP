@@ -57,11 +57,12 @@
         <ul class="navbar-nav navbar-right">
           <!-- klo mau nambah menu notifikasi langsung ke websitenya aja (https://getstisla.com/) -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="<?= base_url(''); ?>assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <!-- tai -->
+            <img alt="image" src="<?= base_url(); ?>assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->session->userdata('name'); ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- <div class="dropdown-title">Logged in 5 min ago</div> -->
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?= site_url('profile'); ?>" class="dropdown-item has-icon">
                 <i class="fas fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -75,10 +76,10 @@
       <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href=""><img src="http://localhost/KuProject/tokoku/assets/img/avatar/icone.png" alt="LP" width="30px"> LaPesen</a>
+            <a href=""><img src="<?= base_url(); ?>assets/img/avatar/icone.png" alt="LP" width="30px"> LaPesen</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href=""><img src="http://localhost/KuProject/tokoku/assets/img/avatar/icone.png" alt="LP" width="47px"></a>
+            <a href=""><img src="<?= base_url(); ?>assets/img/avatar/icone.png" alt="LP" width="47px"></a>
           </div>
           <ul class="sidebar-menu">
               <li class="menu-header">Dashboard</li>
@@ -89,7 +90,7 @@
 
               <li class="<?= ($title == 'Data Transaksi') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('datatransaksi'); ?>" data-toggle="tooltip"><i class="fas fa-chart-bar"></i> <span>Data Transaksi</span></a></li>
 
-              <li class="<?= ($title == 'Pengaturan') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('pengaturan'); ?>" data-toggle="tooltip"><i class="fas fa-cogs"></i> <span>Pengaturan</span></a></li>
+              <li class="<?= ($title == 'Profile') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('Profile'); ?>" data-toggle="tooltip"><i class="fas fa-cogs"></i> <span>Profile</span></a></li>
             </ul>
         </aside>
       </div>

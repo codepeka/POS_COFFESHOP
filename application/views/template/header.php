@@ -49,11 +49,11 @@
         <ul class="navbar-nav navbar-right">
           <!-- klo mau nambah menu notifikasi langsung ke websitenya aja (https://getstisla.com/) -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="<?= base_url(''); ?>assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <img alt="image" src="<?= base_url(); ?>assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->session->userdata('name'); ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- <div class="dropdown-title">Logged in 5 min ago</div> -->
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?= site_url('user'); ?>" class="dropdown-item has-icon">
                 <i class="fas fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -77,18 +77,18 @@
               <li class="<?= ($title == 'Dashboard') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('dashboard'); ?>"><i class="fas fa-home"></i> <span>Home</span></a></li>
 
               <li class="menu-header">Pages</li>
-              <li class="nav-item dropdown <?= ($title == 'Data Barang' || $title == 'Data Barang Masuk') ? 'active' : ''; ?>">
+              <li class="nav-item dropdown <?= ($title == 'Data Menu' || $title == 'Data Bahan Baku') ? 'active' : ''; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu active">
-                  <li class="<?= ($title == 'Data Barang') ? 'active' : ''; ?>"><a class="nav-link active" href="<?= site_url('barang'); ?>">Data Barang</a></li>
-                  <li class="<?= ($title == 'Data Barang Masuk') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('stock'); ?>">Data Barang Masuk</a></li>
+                  <li class="<?= ($title == 'Data Menu') ? 'active' : ''; ?>"><a class="nav-link active" href="<?= site_url('menu'); ?>">Data Menu</a></li>
+                  <li class="<?= ($title == 'Data Bahan Baku') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('bahanbaku'); ?>">Data Bahan Baku</a></li>
                 </ul>
               </li>
-              <li class="nav-item dropdown <?= ($title == 'Laporan Barang Masuk' || $title == 'Laporan Barang Keluar / Penjualan') ? 'active' : ''; ?>">
+              <li class="nav-item dropdown <?= ($title == 'Laporan Penjualan' || $title == 'Laporan Pengeluaran') ? 'active' : ''; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-archive"></i><span>Data Laporan</span></a>
                 <ul class="dropdown-menu active">
-                  <li class="<?= ($title == 'Laporan Barang Masuk') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('LaporanMasuk'); ?>">Laporan Barang Masuk</a></li>
-                  <li class="<?= ($title == 'Laporan Barang Keluar / Penjualan') ? 'active' : ''; ?>"><a class="nav-link active" href="<?= site_url('LaporanKeluar'); ?>">Laporan Barang Keluar</a></li>
+                  <li class="<?= ($title == 'Laporan Penjualan') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('laporanPenjualan'); ?>">Laporan Penjualan</a></li>
+                  <li class="<?= ($title == 'Laporan Pengeluaran') ? 'active' : ''; ?>"><a class="nav-link active" href="<?= site_url('laporanBahanBaku'); ?>">Laporan Pengeluaran</a></li>
                 </ul>
               </li>
               <li class="<?= ($title == 'Data Pengguna') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('user'); ?>"><i class="fas fa-users"></i> <span>Data Pengguna</span></a></li>
@@ -100,11 +100,11 @@
               <li class="<?= ($title == 'History') ? 'active' : ''; ?>"><a class="nav-link" href="<?= site_url('history'); ?>"><i class="fas fa-history"></i> <span>History</span></a></li>
             </ul>
 
-            <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+            <!-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
               <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
                 <i class="fas fa-rocket"></i> Documentation
               </a>
-            </div>
+            </div> -->
         </aside>
       </div>
 

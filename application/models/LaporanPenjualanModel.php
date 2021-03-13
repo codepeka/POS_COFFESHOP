@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class LaporanKeluarModel extends CI_Model {
+class LaporanPenjualanModel extends CI_Model {
  
     var $table = 'pemesanan';
     var $column_order = array(null, 'b.nama', 'a.total_harga', 'a.diskon', '(a.total_harga-a.diskon)', 'a.tgl_ubah'); //set column field database for datatable orderable
@@ -92,9 +92,9 @@ class LaporanKeluarModel extends CI_Model {
 
     public function detail_pemesanan_id($id)
     {	
-    	// SELECT a.id_pemesanan, b.nama_barang, a.jumlah_barang, a.harga_asli FROM pemesanan_detail a LEFT JOIN barang b ON b.id_barang = a.id_barang WHERE a.id_pemesanan = 2
-        $this->db->select('a.id_pemesanan, b.nama_barang, a.jumlah_barang, a.harga_asli');
-		$this->db->join('barang b', 'b.id_barang = a.id_barang', 'left');
+    	// SELECT a.id_pemesanan, b.nama_menu, a.jumlah_menu, a.harga_asli FROM pemesanan_detail a LEFT JOIN menu b ON b.id_menu = a.id_menu WHERE a.id_pemesanan = 2
+        $this->db->select('a.id_pemesanan, b.nama_menu, a.jumlah_menu, a.harga_asli');
+		$this->db->join('menu b', 'b.id_menu = a.id_menu', 'left');
 		$this->db->from('pemesanan_detail a');
         $this->db->where('a.id_pemesanan', $id);
         $query = $this->db->get();
@@ -105,11 +105,12 @@ class LaporanKeluarModel extends CI_Model {
     public function puall($tgl_mulai, $tgl_akhir)
     {	
     	// SELECT a.id_pemesanan, b.nama, a.tgl_ubah FROM pemesanan a LEFT JOIN user b ON b.id_user = a.id_user
-        $this->db->select('a.id_pemesanan, b.nama, a.tgl_ubah');
+        $this->db->select('a.id_pemesanan, b.nama, a.diskon, a.status, a.tgl_ubah');
 		$this->db->join('user b', 'b.id_user = a.id_user', 'left');
 		$this->db->from($this->table . ' a');
 		$this->db->where('a.tgl_ubah >=', $tgl_mulai . ' 00:00:00');
 		$this->db->where('a.tgl_ubah <=', $tgl_akhir . ' 23:59:59');
+        $this->db->where('a.status', 1);
         $query = $this->db->get();
  
         return $query->result();

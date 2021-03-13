@@ -1,31 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class StockModel extends CI_Model {
+class MenuModel extends CI_Model {
  
-    var $table = 'stock_barang';
-    var $column_order = array(null, 'barang.nama_barang', 'stock_barang.jumlah', 'stock_barang.harga_beli', 'stock_barang.tgl_ubah'); //set column field database for datatable orderable
-    var $column_search = array('barang.nama_barang', 'stock_barang.jumlah', 'stock_barang.harga_beli', 'stock_barang.tgl_ubah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = array('stock_barang.id_stock' => 'desc'); // default order 
+    var $table = 'menu';
+    var $column_order = array(null, 'nama_menu', 'kategori', 'harga_jual', 'tgl_ubah'); //set column field database for datatable orderable
+    var $column_search = array('nama_menu', 'kategori', 'harga_jual', 'tgl_ubah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $order = array('id_menu' => 'desc'); // default order 
  
-	public function __construct()
-	{
-	    parent::__construct();
-	    $this->load->database();
-	}
-
-	function dataBarang() {
-        $query = $this->db->query('SELECT id_barang, nama_barang FROM barang');
-        return $query->result();
-    }
-	 
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    //     $this->load->database();
+    // }
+ 
     private function _get_datatables_query()
     {
          
-        // $this->db->from($this->table);
-        $this->db->select('stock_barang.*, barang.id_barang, barang.nama_barang');
-		$this->db->join('barang', 'barang.id_barang = stock_barang.id_barang', 'left');
-		$this->db->from($this->table);
+        $this->db->from($this->table);
  
         $i = 0;
      
@@ -85,10 +77,8 @@ class StockModel extends CI_Model {
  
     public function get_by_id($id)
     {
-        $this->db->select('stock_barang.*, barang.id_barang, barang.nama_barang');
-		$this->db->join('barang', 'barang.id_barang = stock_barang.id_barang', 'left');
-		$this->db->from($this->table);
-        $this->db->where('id_stock',$id);
+        $this->db->from($this->table);
+        $this->db->where('id_menu',$id);
         $query = $this->db->get();
  
         return $query->row();
@@ -108,7 +98,7 @@ class StockModel extends CI_Model {
  
     public function delete_by_id($id)
     {
-        $this->db->where('id_stock', $id);
+        $this->db->where('id_menu', $id);
         $this->db->delete($this->table);
     }
  

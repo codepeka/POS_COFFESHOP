@@ -16,7 +16,7 @@ class Profile extends CI_Controller {
  
     public function index()
     {
-        $data['title'] = "Dashboard";
+        $data['title'] = "Profile";
         $this->load->view('sales/template/header', $data);
         $this->load->view('sales/profile');
         $this->load->view('sales/template/footer');

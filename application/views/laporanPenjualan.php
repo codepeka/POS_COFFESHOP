@@ -1,7 +1,7 @@
 <!-- <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css"> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script> -->
 <!-- <script src="<?= base_url('assets/js/jquery.maskMoney.min.js'); ?>"></script> -->
-<script src="<?= base_url('assets/action/laporanKeluar.js'); ?>"></script>
+<script src="<?= base_url('assets/action/laporanPenjualann.js'); ?>"></script>
 
 <section class="section">
   <div class="section-header">

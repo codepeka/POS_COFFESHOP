@@ -6,15 +6,15 @@
   	}
   ?>
   
-  <h1 class="V-title">LAPORAN DATA BARANG MASUK</h1>
+  <h1 class="V-title">LAPORAN PENGELUARAN BAHAN BAKU</h1>
   <h3 class="V-tanggal">Bulan : <?= date('F Y', strtotime($date)) ?></h3>
   <table cellpadding="5" cellspacing="0" id="myTable" width="100%">
     <thead>
       <tr>
         <th class="text-center no"> No. </th>
-        <th>Nama Barang</th>
-        <th width="100px" align="center">Jumlah</th>
-        <th>Harga Beli</th>
+        <th>Bahan Baku</th>
+        <th width="100px" align="center">Tanggal</th>
+        <th>Sub Total</th>
       </tr>
     </thead>
     <tbody>
@@ -22,13 +22,13 @@
     	  $no = 1;
     	  $totalHarga = 0;
     	  foreach ($dataID as $row): 
-    	  $totalHarga += $row->harga_beli;
+    	  $totalHarga += $row->total_harga;
 		?>
     	<tr>
     	  <td class="text-center"><?= $no++; ?></td>
-    	  <td><?= $row->nama_barang; ?></td>
-    	  <td class="text-center"><?= $row->jumlah; ?></td>
-    	  <td>Rp. <?= number_format($row->harga_beli, 0,',' ,'.'); ?></td>
+    	  <td><?= $row->bahan_baku; ?></td>
+    	  <td class="text-center"><?= $row->tgl_ubah; ?></td>
+    	  <td>Rp. <?= number_format($row->total_harga, 0,',' ,'.'); ?></td>
     	</tr>
     	<?php endforeach; ?>
     	<tr style="border: 1px border: 1px; background-color: #e6e6e6; font-weight: bold;">

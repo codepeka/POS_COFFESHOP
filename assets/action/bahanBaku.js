@@ -12,7 +12,7 @@ $(document).ready(function() {
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "barang/ajax_list",
+            "url": "bahanbaku/ajax_list",
             "type": "POST"
         },
  
@@ -31,14 +31,13 @@ $(document).ready(function() {
         decimal:',', 
         precision:0
     });
- 
+
 });
- 
- 
+
  
 function tambah() {
     save_method = 'add';
-    $('#titleModal').text("Tambah Data Barang"); // tittle modal
+    $('#titleModal').text("Tambah Data Bahan Baku"); // tittle modal
     $('#myForm')[0].reset(); // reset form on modals
     $(".needs-validation").removeClass('was-validated'); // clear error class
     // $('.help-block').empty(); // clear error string
@@ -52,17 +51,17 @@ function edit(id)
  
     //Ajax Load data from ajax
     $.ajax({
-        url : "barang/ajax_edit/" + id,
+        url : "bahanbaku/ajax_edit/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
  
-            $('#idne').val(data.id_barang);
-            $('#nmBrg').val(data.nama_barang);
-            $('#hrgJual').val(new Intl.NumberFormat().format(data.harga_jual).split(',').join('.'));
+            $('#titleModal').text("Edit Data Bahan Baku"); // Set title to Bootstrap modal title
+            $('#idne').val(data.id_bahan_baku);
+            $('#bahanBaku').val(data.bahan_baku);
+            $('#totalHarga').val(new Intl.NumberFormat().format(data.total_harga).split(',').join('.'));
             $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
-            $('#titleModal').text("Edit Data Barang"); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -85,11 +84,11 @@ function save()
     let url;
  
     if(save_method == 'add') {
-        url = "barang/ajax_add";
+        url = "bahanbaku/ajax_add";
         msgSuccess = "Data Berhasil Ditambahkan";
         msgError = "Data Gagal Ditambahkan";
     } else {
-        url = "barang/ajax_update";
+        url = "bahanbaku/ajax_update";
         msgSuccess = "Data Berhasil Diubah";
         msgError = "Data Gagal Diubah";
     }
@@ -130,7 +129,7 @@ function hapus(id)
     {
         // ajax delete data to database
         $.ajax({
-            url : "barang/ajax_delete/"+id,
+            url : "bahanbaku/ajax_delete/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)

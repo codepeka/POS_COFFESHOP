@@ -1,23 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class BarangModel extends CI_Model {
+class BahanBakuModel extends CI_Model {
  
-    var $table = 'barang';
-    var $column_order = array(null, 'foto', 'nama_barang', 'jumlah_stock', 'harga_jual', 'tgl_ubah'); //set column field database for datatable orderable
-    var $column_search = array('foto', 'nama_barang', 'jumlah_stock', 'harga_jual', 'tgl_ubah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = array('id_barang' => 'desc'); // default order 
+    var $table = 'bahan_baku';
+    var $column_order = array(null, 'bahan_baku', 'total_harga', 'tgl_ubah'); //set column field database for datatable orderable
+    var $column_search = array('bahan_baku', 'total_harga', 'tgl_ubah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $order = array('id_bahan_baku' => 'desc'); // default order 
  
-    // public function __construct()
-    // {
-    //     parent::__construct();
-    //     $this->load->database();
-    // }
- 
+	public function __construct()
+	{
+	    parent::__construct();
+	    $this->load->database();
+	}
+
     private function _get_datatables_query()
     {
          
-        $this->db->from($this->table);
+        // $this->db->from($this->table);
+        $this->db->select('*');
+		$this->db->from($this->table);
  
         $i = 0;
      
@@ -77,8 +79,9 @@ class BarangModel extends CI_Model {
  
     public function get_by_id($id)
     {
-        $this->db->from($this->table);
-        $this->db->where('id_barang',$id);
+        $this->db->select('*');
+		$this->db->from($this->table);
+        $this->db->where('id_bahan_baku',$id);
         $query = $this->db->get();
  
         return $query->row();
@@ -98,7 +101,7 @@ class BarangModel extends CI_Model {
  
     public function delete_by_id($id)
     {
-        $this->db->where('id_barang', $id);
+        $this->db->where('id_bahan_baku', $id);
         $this->db->delete($this->table);
     }
  

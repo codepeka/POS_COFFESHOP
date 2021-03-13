@@ -10,7 +10,7 @@
   <!-- Tabel Data Keseluruhan -->
   <div class="section-body">
     <div class="row">
-      <div class="col-6">
+      <div class="col-sm-12 col-xs-12 col-md-12">
         <!-- Form -->
 		<form class="needs-validation" novalidate="" id="myForm" >
 		  <div class="card" id="settings-card">
@@ -82,3 +82,25 @@
 </section>
 
 
+<!-- <form rumat="server">
+	<input type="file" id="imgInp">
+	<img id="imgShow" src="#" alt="your image" />
+</form>
+
+<script type="text/javascript">
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#imgShow').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$('#imgInp').change(function() {
+		readURL(this);
+	})
+</script> -->

@@ -92,9 +92,9 @@ class DataTransaksiModel extends CI_Model {
 
     public function detail_pemesanan_id($id)
     {	
-    	// SELECT a.id_pemesanan, b.nama_barang, a.jumlah_barang, a.harga_asli FROM pemesanan_detail a LEFT JOIN barang b ON b.id_barang = a.id_barang WHERE a.id_pemesanan = 2
-        $this->db->select('a.id_pemesanan, b.nama_barang, a.jumlah_barang, a.harga_asli');
-		$this->db->join('barang b', 'b.id_barang = a.id_barang', 'left');
+    	// SELECT a.id_pemesanan, b.nama_menu, a.jumlah_menu, a.harga_asli FROM pemesanan_detail a LEFT JOIN menu b ON b.id_menu = a.id_menu WHERE a.id_pemesanan = 2
+        $this->db->select('a.id_pemesanan, b.nama_menu, a.jumlah_menu, a.harga_asli');
+		$this->db->join('menu b', 'b.id_menu = a.id_menu', 'left');
 		$this->db->from('pemesanan_detail a');
         $this->db->where('a.id_pemesanan', $id);
         $query = $this->db->get();

@@ -34,7 +34,7 @@ class Login extends CI_Controller {
             if ($data->row()->hak == "owner") {
 			    redirect('dashboard');
             }elseif ($data->row()->hak == "karyawan") {
-                redirect('sales');
+                redirect('home');
             }
 		}else{
 			redirect('login');

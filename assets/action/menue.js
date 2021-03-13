@@ -12,7 +12,7 @@ $(document).ready(function() {
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "stock/ajax_list",
+            "url": "menu/ajax_list",
             "type": "POST"
         },
  
@@ -26,45 +26,21 @@ $(document).ready(function() {
  
     });
 
-    dataBarang(); // panggil data barang
-
     $(".uang").maskMoney({
         thousands:'.', 
         decimal:',', 
         precision:0
     });
-
+ 
 });
-
-
-// data barang
-function dataBarang() {
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "stock/dataBarang",
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            let html = '<option value="">~~ PILIH BARANG ~~</option>';
-            for (let i=0; i<data.length; i++) {
-                html += `<option value="${data[i].id_barang}">${data[i].nama_barang}</option>`;
-                // console.log(`${data[i].id_barang} | ${data[i].nama_barang}`);
-            }
-            $('#nmBrg').html(html);
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            swal("Gagal!"," Data Gagal Ditampilkan", "error"); // pesan gagal
-        }
-    });
-}
+ 
  
  
 function tambah() {
     save_method = 'add';
-    $('#titleModal').text("Tambah Data Barang Masuk / Stok Barang"); // tittle modal
+    $('#titleModal').text("Tambah Data Menu"); // tittle modal
     $('#myForm')[0].reset(); // reset form on modals
+    $('#imgShow').html('');
     $(".needs-validation").removeClass('was-validated'); // clear error class
     // $('.help-block').empty(); // clear error string
     $('#exampleModal').modal('show'); // show bootstrap modal
@@ -77,18 +53,21 @@ function edit(id)
  
     //Ajax Load data from ajax
     $.ajax({
-        url : "stock/ajax_edit/" + id,
+        url : "menu/ajax_edit/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
  
-            $('#titleModal').text("Edit Data Barang Masuk / Stok Barang"); // Set title to Bootstrap modal title
-            $('#idne').val(data.id_stock);
-            $('#nmBrg').val(data.id_barang);
-            $('#jmlBrg').val(data.jumlah);
-            $('#hrgBrg').val(new Intl.NumberFormat().format(data.harga_beli).split(',').join('.'));
+            $('#idne').val(data.id_menu);
+            $('#nmMenu').val(data.nama_menu);
+            if (data.foto !== "") {
+                $('#imgShow').html(`<img src='uploads/menu/${data.foto}' class="mt-2 col-12" style="max-height:auto">`);
+            } else { $('#imgShow').html(''); }
+            $('#kategori').val(data.kategori);
+            $('#hrgJual').val(new Intl.NumberFormat().format(data.harga_jual).split(',').join('.'));
             $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
+            $('#titleModal').text("Edit Data Menu"); // Set title to Bootstrap modal title
  
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -111,21 +90,28 @@ function save()
     let url;
  
     if(save_method == 'add') {
-        url = "stock/ajax_add";
+        url = "menu/ajax_add";
         msgSuccess = "Data Berhasil Ditambahkan";
         msgError = "Data Gagal Ditambahkan";
     } else {
-        url = "stock/ajax_update";
+        url = "menu/ajax_update";
         msgSuccess = "Data Berhasil Diubah";
         msgError = "Data Gagal Diubah";
     }
- 
+    
+    var form = $('#myForm')[0];
+    var data = new FormData(form);
+
     // ajax adding data to database
     $.ajax({
         url : url,
         type: "POST",
-        data: $('#myForm').serialize(),
+        // enctype: 'multipart/form-data',
+        data: data,
+        contentType: false,
+        processData: false,
         dataType: "JSON",
+        // cache: false,
         success: function(data)
         {
             if(data.status) { //if success close modal and reload ajax table
@@ -156,7 +142,7 @@ function hapus(id)
     {
         // ajax delete data to database
         $.ajax({
-            url : "stock/ajax_delete/"+id,
+            url : "menu/ajax_delete/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -174,3 +160,4 @@ function hapus(id)
  
     }
 }
+

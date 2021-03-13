@@ -18,7 +18,6 @@
         <div class="alert-body">
           <div class="alert-title">Selamat Datang, <?= $this->session->userdata('name') ?></div>
           Selamat berkerja dan jangan lupa tersenyum. <br>
-          Have a nice day.
         </div>
       </div>
     </div>

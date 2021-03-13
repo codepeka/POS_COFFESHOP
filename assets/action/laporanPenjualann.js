@@ -12,7 +12,7 @@ $(document).ready(function() {
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "LaporanKeluar/ajax_list",
+            "url": "LaporanPenjualan/ajax_list",
             "type": "POST"
         },
  
@@ -35,7 +35,7 @@ function detail(id) {
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "LaporanKeluar/ajax_detail/" + id,
+        url : "LaporanPenjualan/ajax_detail/" + id,
         type: "GET",
         cache: false,
         success: function(data)
@@ -80,7 +80,7 @@ $(document).ready(function(){
 		if (tgl_mulai != '' && tgl_akhir != '') {
 		    $.ajax({
 		        type  : 'GET',
-		        url   : 'LaporanKeluar/searchByDate/' + tgl_mulai + '/' + tgl_akhir,
+		        url   : 'LaporanPenjualan/searchByDate/' + tgl_mulai + '/' + tgl_akhir,
         		cache: false,
 		        beforeSend: function() {
 		        	$('#showData').html(`<div class="text-center"><h1 style="color: #ff9800">Loading...</h1></div>`);
@@ -93,7 +93,7 @@ $(document).ready(function(){
 					              <thead>
 					                <tr>
 					                  <th class="text-center no"> # </th>
-					                  <th>ID INV</th>
+					                  <th>ID NOTA</th>
 					                  <th>Kasir</th>
 					                  <th>Tanggal</th>
 					                  <th>Nama Barang</th>
@@ -128,5 +128,5 @@ $(document).ready(function(){
 
 // Fungsi cetak laporan
 function cetak(tgl_mulai, tgl_akhir) {
-  window.open("LaporanKeluar/cetak/" + tgl_mulai + '/' + tgl_akhir, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=100,width=900,height=460");
+  window.open("LaporanPenjualan/cetak/" + tgl_mulai + '/' + tgl_akhir, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=100,width=900,height=460");
 }
